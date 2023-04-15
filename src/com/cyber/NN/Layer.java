@@ -7,11 +7,13 @@ public class Layer {
 	/***************************************************************************/
 	
 	//Constructor
-	public Layer(int numberOfNeurons, String type) {
+	public Layer(int inputSize, int numberOfNeurons, String type) {
+		layer = new Neuron[numberOfNeurons];
+		
 		//Initializing parameters for the given layer
 		layer = new Neuron[numberOfNeurons];
 		for(int i = 0; i < layer.length; i++) {
-			layer[i] = new Neuron();
+			layer[i] = new Neuron(inputSize);
 		}
 		
 		//Specifying activation function
@@ -34,7 +36,7 @@ public class Layer {
 	/***************************************************************************/
 	
 	//Replaces weights and biases during network training
-	public void replaceWeightsAndBiases(double[] weights, double[] biases) {
+	public void replaceWeightsAndBiases(double[][] weights, double[] biases) {
 		for(int i = 0; i < layer.length; i++) {
 			layer[i].replaceWeightAndBias(weights[i], biases[i]);
 		}
@@ -43,20 +45,30 @@ public class Layer {
 	/***************************************************************************/
 	
 	//For the genetic algorithm
-	public double[][] getMap() {
-		double[][] map = new double[layer.length][];
+	public double[][] getWeights() {
+		double[][] weights = new double[layer.length][];
 		
-		for(int i = 0; i < map.length; i++) {
-			map[i] = layer[i].getMap();
+		for(int i = 0; i < weights.length; i++) {
+			weights[i] = layer[i].getWeights();
 		}
 		
-		return map;
+		return weights;
+	}
+	
+	public double[] getBiases() {
+		double[] biases = new double[layer.length];
+		
+		for(int i = 0; i < biases.length; i++) {
+			biases[i] = layer[i].getBias();
+		}
+		
+		return biases;
 	}
 		
-		//Sets preferred map based off of genetic algorithm output
-	public void setMap(double[][] map) {
-		for(int i = 0; i < map.length; i++) {
-			layer[i].setMap(map[i]);
+	//Sets preferred map based off of genetic algorithm output
+	public void setMap(double[][] weights, double[] biases) {
+		for(int i = 0; i < layer.length; i++) {
+			layer[i].setMap(weights[i], biases[i]);
 		}
 	}
 }

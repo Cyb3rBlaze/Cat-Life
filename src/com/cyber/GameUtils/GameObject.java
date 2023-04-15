@@ -8,13 +8,13 @@ import java.util.TimerTask;
 public class GameObject {
 	//Basic GameObject properties that all GameObjects will inherit
 	
-		//Location and size properties
-	private double x = 0;
-	private double y = 0;
+	//Location and size properties
+	protected double x = 0;
+	protected double y = 0;
 	private int width = 0;
 	private int height = 0;
 	
-		//Sprite Properties	
+	//Sprite Properties	
 	protected BufferedImage spriteSheet;
 	protected BufferedImage currImage;
 	protected Timer timer;
@@ -29,7 +29,7 @@ public class GameObject {
 	protected int currMove;
 	protected int prevMove;
 	
-		//Collision Detection
+	//Collision Detection
 	protected Rectangle2D[] borders;
 	
 	/***************************************************************************/
@@ -67,10 +67,10 @@ public class GameObject {
 	
 	protected void initializeColliders() {
 		borders = new Rectangle2D[4];
-		borders[0] = new Rectangle2D.Double(actualX+20, actualY, actualWidth-40, 20);
-		borders[1] = new Rectangle2D.Double(actualX+actualWidth-20, actualY+20, 20, actualHeight-40);
-		borders[2] = new Rectangle2D.Double(actualX+20, actualY+actualHeight-20, actualWidth-40, 20);
-		borders[3] = new Rectangle2D.Double(actualX, actualY+20, 20, actualHeight-40);
+		borders[0] = new Rectangle2D.Double(x+90, y+78, actualWidth-40, 20);
+		borders[1] = new Rectangle2D.Double(x+60+actualWidth-20, y+98, 20, actualHeight-40);
+		borders[2] = new Rectangle2D.Double(x+90, y+actualHeight-20+78, actualWidth-40, 20);
+		borders[3] = new Rectangle2D.Double(x+80, y+98, 20, actualHeight-40);
 	}
 	
 	/***************************************************************************/
@@ -90,6 +90,14 @@ public class GameObject {
 	
 	public void setY(double y) {
 		this.y = y;
+	}
+	
+	public void setActualX(double x) {
+		this.actualX = x;
+	}
+	
+	public void setActualY(double y) {
+		this.actualY = y;
 	}
 	
 	public int getWidth() {

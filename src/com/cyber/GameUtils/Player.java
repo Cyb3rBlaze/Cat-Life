@@ -14,10 +14,14 @@ public class Player extends GameObject {
 	private boolean jumped = false;
 	private boolean stopped = false;
 	private boolean left = false;
+	private boolean dead = false;
 	
 	public boolean GAenabled = false;
 	
 	private boolean isPlayer;
+	
+	protected Rectangle2D front;
+	protected Rectangle2D bottom;
 	
 	/***************************************************************************/
 	
@@ -50,20 +54,29 @@ public class Player extends GameObject {
 		initializeColliders();
 		
 		this.isPlayer = isPlayer;
+		
+		front = new Rectangle2D.Double(x+90, y+78, 200, 20);
+		bottom = new Rectangle2D.Double(x+90, y+78, 20, 200);
 	}
 	
 	/***************************************************************************/
 	
 	//Updates Player properties every frame
 	public void render() {
-		this.setX(this.getX()+velX);
-		this.setY(this.getY()+velY);
-		actualX = this.getX()+65;
-		actualY = this.getY()+80;
-		if(velY <= 4) {
-			velY += 0.1;
+		if(!dead) {
+			this.setX(this.getX()+velX);
+			this.setY(this.getY()+velY);
+			actualX = actualX + velX;
+			actualY = actualY + velY;
+			if(velY <= 4) {
+				velY += 0.1;
+			}
+			initializeColliders();
+			initializeInputDetectors();
 		}
-		initializeColliders();
+		else {
+			velY = 0;
+		}
 	}
 	
 	//Updates Player graphics every frame
@@ -75,6 +88,11 @@ public class Player extends GameObject {
 		else {
 			g2.drawImage(currImage, (int) this.getX(), (int) this.getY(), (int) this.getWidth(), (int) this.getHeight(), null);
 		}
+	}
+	
+	private void initializeInputDetectors() {
+		front = new Rectangle2D.Double(x+120, y+95, 200, 20);
+		bottom = new Rectangle2D.Double(x+120, y+95, 20, 200);
 	}
 	
 	/***************************************************************************/
@@ -102,6 +120,14 @@ public class Player extends GameObject {
 	
 	public void setCurrMove(int move) {
 		this.currMove = move;
+	}
+	
+	public void setIsDead(boolean dead) {
+		this.dead = dead;
+	}
+	
+	public boolean getDead() {
+		return dead;
 	}
 	
 	/***************************************************************************/

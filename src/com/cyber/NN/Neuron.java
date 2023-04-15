@@ -4,19 +4,25 @@ import java.util.Random;
 
 public class Neuron {
 	//Creating weight and bias object for individual neuron
-	private double weight;
+	private double[] weights;
 	private double bias;
 	
 	/***************************************************************************/
 	
 	//Constructor
-	public Neuron() {
+	public Neuron(int inputSize) {
 		//Randomly initialize weights and biases 
 		Random rg = new Random();
-		weight = rg.nextFloat();
+		
+		weights = new double[inputSize];
+		
+		for(int i = 0; i < inputSize; i++) {
+			weights[i] = rg.nextFloat();
+			if(rg.nextInt()%2 ==0) {weights[i] = -weights[i];}
+		}
+		
 		bias = rg.nextFloat();
 		
-		if(rg.nextInt()%2 ==0) {weight = -weight;}
 		if(rg.nextInt()%2 ==0) {bias = -bias;}
 	}
 	
@@ -28,7 +34,7 @@ public class Neuron {
 		
 		//Linear combining
 		for(int i = 0; i < inputs.length; i++) {
-			output += weight*inputs[i];
+			output += weights[i]*inputs[i];
 		}
 		
 		output += bias;
@@ -49,23 +55,25 @@ public class Neuron {
 	/***************************************************************************/
 	
 	//Genetic algorithim trains the neural network
-	public void replaceWeightAndBias(double weight, double bias) {
-		this.weight = weight;
+	public void replaceWeightAndBias(double weights[], double bias) {
+		this.weights = weights;
 		this.bias = bias;
 	}
 	
 	/***************************************************************************/
 	
 	//For genetic algorithm purposes
-	public double[] getMap() {
-		double[] output = {weight, bias};
-		
-		return output;
+	public double[] getWeights() {
+		return weights;
 	}
 	
-		//Sets the weight and biases the genetic algorithm prefers
-	public void setMap(double[] map) {
-		weight = map[0];
-		bias = map[1];
+	public double getBias() {
+		return bias;
+	}
+	
+	//Sets the weight and biases the genetic algorithm prefers
+	public void setMap(double[] weights, double bias) {
+		this.weights = weights;
+		this.bias = bias;
 	}
 }

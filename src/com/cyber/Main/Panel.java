@@ -16,11 +16,11 @@ import com.cyber.GameUtils.SettingContainer;
 public class Panel extends JPanel implements Runnable, KeyListener {
 	//Creating vars used by panel to render graphics to the screen
 	
-		//Thread vars used to manage frame rate and game loop
+	//Thread vars used to manage frame rate and game loop
 	private Thread thread;
 	private boolean isRunning;
 	private int targetFPS;
-			//For displaying purposes
+	//For displaying purposes
 	public static int displayFPS;
 	
 	//Game setting declaration
@@ -44,9 +44,9 @@ public class Panel extends JPanel implements Runnable, KeyListener {
 		thread.start();
 		
 		//Enabling Keylistener properties
-		this.addKeyListener(this);
-		this.setFocusable(true);
-		this.setFocusTraversalKeysEnabled(false);
+//		this.addKeyListener(this);
+//		this.setFocusable(true);
+//		this.setFocusTraversalKeysEnabled(false);
 	}
 	
 	/***************************************************************************/
@@ -102,9 +102,9 @@ public class Panel extends JPanel implements Runnable, KeyListener {
 		enviornment.paintComponent(g2);
 		
 		//Drawing FPS to screen
-		Font fps = new Font("Ariel", 50, 50);
+		Font fps = new Font("Ariel", 20, 20);
 		g2.setFont(fps);
-		g2.drawString("FPS: " + Integer.toString(displayFPS), 750, 70);
+		g2.drawString("FPS: " + Integer.toString(displayFPS), 830, 60);
 	}
 	
 	/***************************************************************************/
@@ -115,11 +115,11 @@ public class Panel extends JPanel implements Runnable, KeyListener {
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		enviornment.keyPressed(e);
+//		enviornment.keyPressed(e);
 	}
 	
 	@Override
 	public void keyReleased(KeyEvent e) {
-		enviornment.keyReleased(e);
+//		enviornment.keyReleased(e);
 	}
 }
